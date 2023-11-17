@@ -1,0 +1,91 @@
+<section class="text-layout">
+  <h1>Pipes personalizados</h1>
+
+  <p>
+    {{ "Pipes" | myuppercase: isUppercase }} creados por
+    {{ "nosotros" | myuppercase: isUppercase }}
+  </p>
+</section>
+
+<p-toolbar>
+  <section class="toolbar-group-left"></section>
+
+  <section class="toolbar-group-right">
+    <p-button
+      styleClass="mr-1 p-button-warning"
+      (onClick)="toggleUppercase()"
+      label="Toggle Uppercase"
+    ></p-button>
+
+    <p-button
+      (onClick)="changeOrder('name')"
+      icon="pi pi-sort"
+      label="Por nombre"
+      styleClass="mr-1"
+    ></p-button>
+
+    <p-button
+      (onClick)="changeOrder('fly')"
+      icon="pi pi-sort"
+      label="Valores"
+      styleClass="mr-1 p-button-success"
+    ></p-button>
+
+    <p-button
+      (onClick)="changeOrder('color')"
+      icon="pi pi-sort"
+      label="Por color"
+      styleClass="mr-1 p-button-help"
+    ></p-button>
+  </section>
+</p-toolbar>
+
+<section class="grid">
+  <div class="col mt-2">
+    <p-table [value]="heroes | slice: 0" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">
+            Name <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="fly">
+            Fly <p-sortIcon field="fly"></p-sortIcon>
+          </th>
+          <th pSortableColumn="color">
+            Color <p-sortIcon field="color"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>{{ product.fly | isFly | titlecase }}</td>
+          <td>{{ product.color }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</section>
+
+<!-- sort with our pipe -->
+
+<section class="grid">
+  <div class="col mt-2">
+    <p-table [value]="heroes | order: orderBy" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Fly</th>
+          <th>Color</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>{{ product.fly | isFly | titlecase }}</td>
+          <td>{{ product.color }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</section>
